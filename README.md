@@ -14,7 +14,7 @@ The goal is to help a car dealer (or user) estimate the market value of a used c
 
 
 ## Project Structure
-
+<pre>
 test_comp/
 │
 ├── app.py                 # Flask application
@@ -36,6 +36,7 @@ test_comp/
 │   └── index.html         # Web interface
 │
 └── car_prices_data.csv    # Dataset
+</pre>
 
 ## How to Run Locally
 1️- Create & activate a virtual environment
