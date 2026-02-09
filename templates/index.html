@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Value Estimator</title>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #e6f2ff, #f2f9ff);
+            font-family: "Segoe UI", Roboto, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #2c2c2c;
+        }
+
+
+        .wrapper {
+            max-width: 950px;
+            margin: 60px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border-radius: 14px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .title {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #2c2c2c;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #777;
+            margin-bottom: 35px;
+            max-width: 700px;
+            line-height: 1.6;
+        }
+
+        .section {
+            margin-bottom: 35px;
+        }
+
+        .section h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 14px;
+            color: #444;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 14px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 15px;
+            background-color: #fafafa;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #e38cae;
+            background-color: #fff;
+        }
+
+        .full {
+            grid-column: span 2;
+        }
+
+        .submit-btn {
+            display: block;
+            margin-top: 20px;
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 10px;
+            color: #ffffff;
+            background: linear-gradient(135deg, #4da3ff, #1f7aff);
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 22px rgba(31, 122, 255, 0.35);
+        }
+
+        .prediction-result {
+            margin-top: 24px;
+            padding: 18px;
+            border-radius: 12px;
+            background-color: #e8f8ef;
+            color: #1e7f43;
+            font-size: 22px;
+            font-weight: 600;
+            text-align: center;
+            border: 1px solid #bde5cc;
+        }
+
+
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .full {
+                grid-column: span 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="wrapper">
+    <div class="card">
+        <h1 class="title">Second-Hand Car Value Estimator</h1>
+        <p class="subtitle">
+            Estimate the market value of your vehicle using a machine learning model
+            trained on real used-car data. Simply fill in the details below.
+        </p>
+
+        <form action="/predict_form" method="post">
+
+            <div class="section">
+                <h3>Vehicle Identification</h3>
+                <div class="grid">
+                    <input class="full" type="text" name="car_name"
+                           placeholder="Car name (e.g. Hyundai Verna 1.6 SX)" required>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>Technical Specifications</h3>
+                <div class="grid">
+                    <input type="number" name="engine_cc" placeholder="Engine CC" required>
+                    <input type="number" name="seats" placeholder="Seats" required>
+                    <input type="number" name="manufacture" placeholder="Manufacture year" required>
+                    <input type="number" name="driven_km" placeholder="Driven kilometers" required>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>Fuel & Transmission</h3>
+                <div class="grid">
+                    <select name="fuel_type" required>
+                        <option value="">Fuel type</option>
+                        <option>Petrol</option>
+                        <option>Diesel</option>
+                        <option>Electric</option>
+                        <option>Lpg</option>
+                        <option>Cng</option>
+                    </select>
+
+                    <select name="transmission" required>
+                        <option value="">Transmission</option>
+                        <option>Manual</option>
+                        <option>Automatic</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>Ownership History</h3>
+                <div class="grid">
+                    <select class="full" name="ownership" required>
+                        <option value="">Number of previous owners</option>
+                        <option>0th Owner</option>
+                        <option>1st Owner</option>
+                        <option>2nd Owner</option>
+                        <option>3rd Owner</option>
+                        <option>4th Owner</option>
+                        <option>5th Owner</option>
+                    </select>
+                </div>
+            </div>
+
+            <button class="submit-btn" type="submit">
+                Predict Vehicle Price
+            </button>
+
+            {% if prediction_text %}
+                <div class="prediction-result">
+                    {{ prediction_text }}
+                </div>
+            {% endif %}
+
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
